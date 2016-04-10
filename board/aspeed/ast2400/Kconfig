@@ -1,0 +1,14 @@
+if TARGET_AST2400
+
+config SYS_BOARD
+  default "ast2400"
+
+config SYS_VENDOR
+  default "aspeed"
+
+config SYS_CONFIG_NAME
+  default "wedge" if TARGET_WEDGE
+  default "wedge100" if TARGET_WEDGE100
+  default "fbyosemite" if TARGET_FBYOSEMITE
+
+endif
