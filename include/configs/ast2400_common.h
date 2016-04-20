@@ -12,7 +12,7 @@
  * High Level Configuration Options
  * (easy to change)
  */
-#undef  CONFIG_INIT_CRITICAL
+#undef CONFIG_INIT_CRITICAL
 #define CONFIG_ARM926EJS
 #define	CONFIG_ASPEED
 #define CONFIG_AST2400
@@ -69,9 +69,9 @@
  *    CONFIG_DRAM_UART_OUT   // enable output message at UART5
  *    CONFIG_DRAM_UART_38400 // set the UART baud rate to 38400, default is 115200
  */
-#define    CONFIG_DRAM_1GBIT
-#define    CONFIG_DRAM_408
-#define    CONFIG_DRAM_UART_OUT
+#define CONFIG_DRAM_1GBIT
+#define CONFIG_DRAM_408
+#define CONFIG_DRAM_UART_OUT
 
 /*
  * Environment Config
@@ -102,47 +102,48 @@
  * Memory Configuration
  * The board configuration must set: PHYS_SDRAM_1_SIZE
  */
-#define CONFIG_NR_DRAM_BANKS	1	   	/* we have 1 bank of DRAM */
-#define PHYS_SDRAM_1		0x40000000 	/* SDRAM Bank #1 */
-#define CONFIG_SYS_SDRAM_BASE 0x40000000
-#define CONFIG_SYS_INIT_SP_ADDR (CONFIG_SYS_SDRAM_BASE + 0x1000 - GENERATED_GBL_DATA_SIZE)
+#define CONFIG_NR_DRAM_BANKS	1		/* we have 1 bank of DRAM */
+#define PHYS_SDRAM_1		0x40000000	/* SDRAM Bank #1 */
+#define CONFIG_SYS_SDRAM_BASE	0x40000000
+#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - GENERATED_GBL_DATA_SIZE)
 
 /*
  * Flash Configuration
  */
 #ifdef CONFIG_SYS_FLASH_CFI
 #ifdef CONFIG_FLASH_AST2300
-#define PHYS_FLASH_1      0x20000000  /* Flash Bank #1 */
+#define PHYS_FLASH_1			0x20000000  /* Flash Bank #1 */
 #else
-#define PHYS_FLASH_1      0x10000000  /* Flash Bank #1 */
+#define PHYS_FLASH_1			0x10000000  /* Flash Bank #1 */
 #endif
 #define CONFIG_SYS_MAX_FLASH_SECT	(256)
 #define CONFIG_SYS_FLASH_CFI_AMD_RESET
 #define CONFIG_SYS_FLASH_USE_BUFFER_WRITE
 #else	/* SPI Flash */
 #ifdef CONFIG_FLASH_AST2300
-#define PHYS_FLASH_1		0x20000000 	/* Flash Bank #1 */
+#define PHYS_FLASH_1			0x20000000 	/* Flash Bank #1 */
 #else
-#define PHYS_FLASH_1		0x14000000 	/* Flash Bank #1 */
+#define PHYS_FLASH_1			0x14000000 	/* Flash Bank #1 */
 #endif
-#define CONFIG_SYS_MAX_FLASH_SECT (1024)
+#define CONFIG_SYS_MAX_FLASH_SECT	(1024)
 #endif
 
 /*
  * Additional flash configuration
  */
-#define CONFIG_SYS_TEXT_BASE    0x00000000
-#define CONFIG_SYS_FLASH_BASE PHYS_FLASH_1
-#define CONFIG_FLASH_BANKS_LIST   { PHYS_FLASH_1 }
-#define CONFIG_SYS_MAX_FLASH_BANKS  1
+#define CONFIG_SYS_TEXT_BASE		0x00000000
+#define CONFIG_SYS_FLASH_BASE		PHYS_FLASH_1
+#define CONFIG_FLASH_BANKS_LIST		{ PHYS_FLASH_1 }
+#define CONFIG_SYS_MAX_FLASH_BANKS	1
 
-#define __LITTLE_ENDIAN 1
-#define __BYTE_ORDER __LITTLE_ENDIAN
-#define __LITTLE_ENDIAN_BITFIELD
-#define CONFIG_SYS_MONITOR_BASE	CONFIG_SYS_TEXT_BASE
 #define CONFIG_SYS_MONITOR_LEN		(192 << 10)
 #define CONFIG_SYS_FLASH_ERASE_TOUT	(20*CONFIG_SYS_HZ) 	/* Timeout for Flash Erase */
 #define CONFIG_SYS_FLASH_WRITE_TOUT	(20*CONFIG_SYS_HZ) 	/* Timeout for Flash Write */
+#define CONFIG_SYS_MONITOR_BASE	CONFIG_SYS_TEXT_BASE
+
+#define __LITTLE_ENDIAN			1
+#define __BYTE_ORDER __LITTLE_ENDIAN
+#define __LITTLE_ENDIAN_BITFIELD
 
 /*
  * Miscellaneous configurable options
@@ -156,23 +157,10 @@
 #define CONFIG_SYS_LOAD_ADDR		0x43000000	/* default load address */
 
 /*
- * Basic boot command configuration based on flash
- */
-#ifdef CONFIG_FLASH_AST2300
-#define CONFIG_BOOTCOMMAND  "bootm 20080000 20300000"
-#else
-#ifdef CONFIG_SYS_FLASH_CFI
-#define CONFIG_BOOTCOMMAND  "bootm 10080000 10300000"
-#else
-#define CONFIG_BOOTCOMMAND  "bootm 14080000 14300000"
-#endif
-#endif
-
-/*
  * Timer configuration
  */
 #define CONFIG_SYS_TIMERBASE		0x1E782000	/* use timer 1 */
-#define CONFIG_ASPEED_TIMER_CLK (1*1000*1000) /* use external clk (1M) */
+#define CONFIG_ASPEED_TIMER_CLK 	(1*1000*1000)	/* use external clk (1M) */
 
 /*
  * Serial configuration
@@ -189,7 +177,7 @@
 #define CONFIG_SYS_NS16550_CLK		24000000
 #define CONFIG_SYS_NS16550_COM1		0x1e783000
 #define CONFIG_SYS_NS16550_COM2		0x1e784000
-#define CONFIG_SYS_NS16550_COM3   0x1e78e000
+#define CONFIG_SYS_NS16550_COM3		0x1e78e000
 #define CONFIG_SYS_BAUDRATE_TABLE	{ 9600, 19200, 38400, 57600, 115200 }
 #define CONFIG_ASPEED_COM_IER (CONFIG_ASPEED_COM + 0x4)
 #define CONFIG_ASPEED_COM_IIR (CONFIG_ASPEED_COM + 0x8)
@@ -217,8 +205,8 @@
 /*
 * EEPROM configuration
 */
-#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN 	2
-#define CONFIG_SYS_I2C_EEPROM_ADDR 	0xa0
+#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN	2
+#define CONFIG_SYS_I2C_EEPROM_ADDR	0xa0
 
 
 /*
