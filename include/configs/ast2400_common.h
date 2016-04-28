@@ -106,8 +106,11 @@
  */
 #define CONFIG_NR_DRAM_BANKS	1		/* we have 1 bank of DRAM */
 #define PHYS_SDRAM_1		0x40000000	/* SDRAM Bank #1 */
+
+#ifndef CONFIG_SPL_BUILD
 #define CONFIG_SYS_SDRAM_BASE	0x40000000
 #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - GENERATED_GBL_DATA_SIZE)
+#endif
 
 /*
  * Flash Configuration
@@ -133,7 +136,9 @@
 /*
  * Additional flash configuration
  */
+#ifndef CONFIG_SYS_TEXT_BASE
 #define CONFIG_SYS_TEXT_BASE		0x00000000
+#endif
 #define CONFIG_SYS_FLASH_BASE		PHYS_FLASH_1
 #define CONFIG_FLASH_BANKS_LIST		{ PHYS_FLASH_1 }
 #define CONFIG_SYS_MAX_FLASH_BANKS	1

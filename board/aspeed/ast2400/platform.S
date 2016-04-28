@@ -33,6 +33,9 @@
 .globl platform_unsupported_exit
 
 lowlevel_init:
+    /* Save lr for platform exit */
+    mov r4, lr
+
     /* Yosemite Platform specific Initialization */
 #ifdef CONFIG_TARGET_FBYOSEMITE
     /*
@@ -119,9 +122,30 @@ lowlevel_init:
     mov r1, #0x07
     str r1, [r0]
 
+#ifdef CONFIG_SPL_BUILD
+#ifdef DEBUG
+    /* Debug - UART console message */
+    ldr r0, =CONFIG_ASPEED_COM
+    mov r1, #0x0D                                @ '\r'
+    str r1, [r0]
+    mov r1, #0x0A                                @ '\n'
+    str r1, [r0]
+    mov r1, #0x53                                @ 'S'
+    str r1, [r0]
+    mov r1, #0x50                                @ 'P'
+    str r1, [r0]
+    mov r1, #0x4C                                @ 'L'
+    str r1, [r0]
+    mov r1, #0x0D                                @ '\r'
+    str r1, [r0]
+    mov r1, #0x0A                                @ '\n'
+    str r1, [r0]
+    /* End Debug - UART console message */
+#endif
+
+    b platform_exit
+#else
 init_dram:
-    /* Save lr for platform exit */
-    mov r4, lr
     /* Test - DRAM initial time */
     ldr r0, =0x1e782044
     ldr r1, =0xFFFFFFFF
@@ -383,7 +407,7 @@ delay_2:
     cmp r2, #0x01
     beq platform_unsupported_exit                @ DDR2 not supported on AST2400+
     b   ddr3_init
-.LTORG
+#endif
 
 platform_unsupported_exit:
     ldr r0, =CONFIG_ASPEED_COM
@@ -414,6 +438,9 @@ platform_unsupported_exit:
     mov r1, #0x0A                                @ '\n'
     str r1, [r0]
 
+platform_unsupported_hang:
+    b platform_unsupported_hang
+
 platform_exit:
     /*
      * Fix for enabling BMC reset without hang using external reset pulse
@@ -426,6 +453,16 @@ platform_exit:
     and r1, r1, r2
     str r1, [r0]
 #endif
+
+#ifndef CONFIG_ASPEED_ENABLE_JTAG
+    ldr r0, =0x1e6e2004
+    ldr r1, [r0]
+    ldr r2, =0xFFBFFFFF                          @ Enable JTAG Master, solve ARM stucked by JTAG issue
+    and r1, r1, r2
+    str r1, [r0]
+#endif
+
+#ifndef CONFIG_SPL_BUILD
 #ifdef CONFIG_DRAM_ECC
     ldr r0, =0x1e6e0004
     ldr r1, [r0]
@@ -475,14 +512,6 @@ ECC_Init_Flag:
     and r1, r1, r2
     orr r1, r1, #0x08
     str r1, [r0]
-
-#ifndef CONFIG_ASPEED_ENABLE_JTAG
-    ldr r0, =0x1e6e2004
-    ldr r1, [r0]
-    ldr r2, =0xFFBFFFFF                          @ Enable JTAG Master, solve ARM stucked by JTAG issue
-    and r1, r1, r2
-    str r1, [r0]
-#endif
 
     ldr r0, =0x1e6e2048                          @ Set MAC interface delay timing
     ldr r1, =0x2255
@@ -834,6 +863,7 @@ spi_cbr_end:
     str r1, [r0]
 
 platform_exit4:
+#endif
     /* Restore lr and return. */
     mov lr, r4
     mov pc, lr

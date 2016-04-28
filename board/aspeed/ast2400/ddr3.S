@@ -775,7 +775,7 @@ cbr0_next_dll2_parameter:
     ldr   r2, =0x01010101
     add   r7, r7, r2
 
-/* CBRScan3() start */
+    /* CBRScan3() start */
     adrl  r5, PATTERN_TABLE                      @ init pattern table index
 /****************************
  Test pattern iteration loop
@@ -1087,7 +1087,7 @@ cbr1_next_dll2_parameter:
     ldr   r1, =0x00000FFF
     str   r1, [r0]
 
-/* CBRScan2() start */
+    /* CBRScan2() start */
     ldr   r9, =0xFFFF                            @ init test status
     adrl  r5, PATTERN_TABLE                      @ init pattern table index
 /****************************

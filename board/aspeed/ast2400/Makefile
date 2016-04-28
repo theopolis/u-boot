@@ -9,6 +9,11 @@
 # MA 02111-1307 USA
 #
 
+ifeq ($(CONFIG_SPL_BUILD),y)
+obj-y = ast2400_spl.o
+else
 obj-y = ast2400.o
+endif
+
 obj-y += platform.o
 obj-y += ddr3.o

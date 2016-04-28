@@ -120,7 +120,6 @@ int misc_init_r(void)
 	u32 reg, revision, chip_id;
 
 	/* Show H/W Version */
-	//reg1 = (unsigned int) (*((ulong*) 0x1e6e207c));
 	reg = readl(HW_VERSION_BASE);
 
 	chip_id = (reg & 0xff000000) >> 24;
