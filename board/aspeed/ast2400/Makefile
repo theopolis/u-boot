@@ -9,18 +9,5 @@
 # MA 02111-1307 USA
 #
 
-obj-y := ast2400.o
-obj-y += flash.o
-obj-y += flash_spi.o
-obj-y += pci.o
-obj-y += crc32.o
-obj-y += slt.o 
-obj-y += regtest.o
-obj-y += vfun.o
-obj-y += vhace.o
-obj-y += crt.o
-obj-y += videotest.o
-obj-y += mactest.o
-obj-y += hactest.o
-obj-y += mictest.o
+obj-y = ast2400.o
 obj-y += platform.o
