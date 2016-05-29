@@ -655,7 +655,7 @@ static int fit_config_add_verification_data(const char *keydir, void *keydest,
 int fit_add_verification_data(const char *keydir, void *keydest, void *fit,
 			      const char *comment, int require_keys)
 {
-	int images_noffset, confs_noffset;
+	int images_noffset, confs_noffset, keys_noffset;
 	int noffset;
 	int ret;
 
@@ -685,10 +685,29 @@ int fit_add_verification_data(const char *keydir, void *keydest, void *fit,
 	if (!IMAGE_ENABLE_SIGN || !keydir)
 		return 0;
 
+	/**
+	 * Inputs may request key signing.
+	 * Signed keys are intended to extend the keystore used to verify
+	 * images and configurations. They works similarly to configurations
+	 * in that the key's properties comprise the signed content.
+	 */
+	keys_noffset = fdt_path_offset(fit, FIT_KEYS_PATH);
+	for (noffset = fdt_first_subnode(fit, keys_noffset);
+	     noffset >= 0;
+	     noffset = fdt_next_subnode(fit, noffset)) {
+		if (fdt_getprop(fit, noffset, FIT_NOSIGN_PROP, NULL) != NULL) {
+			/* Resigning keys should be cowardly avoided. */
+			continue;
+		}
+		ret = fit_image_add_verification_data(keydir, keydest,
+						      fit, noffset, comment,
+						      require_keys);
+	}
+
 	/* Find configurations parent node offset */
 	confs_noffset = fdt_path_offset(fit, FIT_CONFS_PATH);
 	if (confs_noffset < 0) {
-		printf("Can't find images parent node '%s' (%s)\n",
+		printf("Can't find configurations parent node '%s' (%s)\n",
 		       FIT_CONFS_PATH, fdt_strerror(confs_noffset));
 		return -ENOENT;
 	}

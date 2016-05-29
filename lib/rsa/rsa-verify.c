@@ -56,7 +56,7 @@ static int rsa_verify_key(struct key_prop *prop, const uint8_t *sig,
 		return -EINVAL;
 	}
 
-	debug("Checksum algorithm: %s", algo->name);
+	debug("Checksum algorithm: %s\n", algo->name);
 
 	/* Sanity check for stack size */
 	if (sig_len > RSA_MAX_SIG_BITS / 8) {
