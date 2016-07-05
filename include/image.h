@@ -787,6 +787,7 @@ int bootz_setup(ulong image, ulong *start, ulong *end);
 
 #define FIT_IMAGES_PATH		"/images"
 #define FIT_CONFS_PATH		"/configurations"
+#define FIT_KEYS_PATH		"/keys"
 
 /* hash/signature node */
 #define FIT_HASH_NODENAME	"hash"
@@ -814,6 +815,10 @@ int bootz_setup(ulong image, ulong *start, ulong *end);
 #define FIT_DEFAULT_PROP	"default"
 #define FIT_SETUP_PROP		"setup"
 #define FIT_FPGA_PROP		"fpga"
+
+/* key node */
+#define FIT_KEY_PREFIX		"key-"
+#define FIT_NOSIGN_PROP		"no-resign"
 
 #define FIT_MAX_HASH_LEN	HASH_MAX_DIGEST_SIZE
 
@@ -1095,8 +1100,9 @@ int fit_image_verify_required_sigs(const void *fit, int image_noffset,
  * @noffset:		Offset of signature node to check
  * @data:		Image data to check
  * @size:		Size of image data
- * @required_keynode:	Offset in the control FDT of the required key node,
- *			if any. If this is given, then the image wil not
+ * @sig_blob:		FDT to use as the key store
+ * @required_keynode:	Offset in the key store of the required key node,
+ *			if any. If this is given, then the image will not
  *			pass verification unless that key is used. If this is
  *			-1 then any signature will do.
  * @err_msgp:		In the event of an error, this will be pointed to a
@@ -1104,7 +1110,8 @@ int fit_image_verify_required_sigs(const void *fit, int image_noffset,
  * @return 0 if all verified ok, <0 on error
  */
 int fit_image_check_sig(const void *fit, int noffset, const void *data,
-		size_t size, int required_keynode, char **err_msgp);
+		size_t size, const void *sig_blob, int required_keynode,
+		char **err_msgp);
 
 /**
  * fit_region_make_list() - Make a list of regions to hash

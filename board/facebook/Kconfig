@@ -1,0 +1,75 @@
+if TARGET_FBYOSEMITE
+
+config SYS_CPU
+	default "arm926ejs"
+
+config SYS_BOARD
+	default "ast2400"
+
+config SYS_VENDOR
+	default "aspeed"
+
+config SYS_SOC
+	default "aspeed"
+
+config SYS_CONFIG_NAME
+	default "fbyosemite"
+
+endif
+
+if TARGET_FBLIGHTNING
+
+config SYS_CPU
+        default "arm926ejs"
+
+config SYS_BOARD
+        default "ast2400"
+
+config SYS_VENDOR
+        default "aspeed"
+
+config SYS_SOC
+        default "aspeed"
+
+config SYS_CONFIG_NAME
+        default "fblightning"
+
+endif
+
+if TARGET_FBWEDGE
+
+config SYS_CPU
+  default "arm926ejs"
+
+config SYS_BOARD
+  default "ast2400"
+
+config SYS_VENDOR
+  default "aspeed"
+
+config SYS_SOC
+  default "aspeed"
+
+config SYS_CONFIG_NAME
+  default "fbwedge"
+
+endif
+
+if TARGET_FBWEDGE100
+
+config SYS_CPU
+  default "arm926ejs"
+
+config SYS_BOARD
+  default "ast2400"
+
+config SYS_VENDOR
+  default "aspeed"
+
+config SYS_SOC
+  default "aspeed"
+
+config SYS_CONFIG_NAME
+  default "fbwedge100"
+
+endif
