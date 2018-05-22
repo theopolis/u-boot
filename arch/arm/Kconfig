@@ -153,6 +153,10 @@ config TARGET_FBWEDGE100
 	bool "Support Facebook's OpenBMC Wedge100 TOR"
 	select CPU_ARM926EJS
 
+config TARGET_BFMAVERICKS
+	bool "Support Barefoot's OpenBMC MAVERICKS TOR"
+	select CPU_ARM926EJS
+
 config TARGET_FBMINIPACK
        bool "Support Facebook's OpenBMC Minipack"
 	select CPU_ARM1176
@@ -988,6 +992,7 @@ source "arch/arm/imx-common/Kconfig"
 
 source "board/aspeed/Kconfig"
 source "board/fb-obmc/Kconfig"
+source "board/bf-obmc/Kconfig"
 
 source "board/bosch/shc/Kconfig"
 source "board/BuR/brxre1/Kconfig"
