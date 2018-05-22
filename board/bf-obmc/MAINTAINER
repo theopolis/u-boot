@@ -1,0 +1,6 @@
+BAREFOOT OPENBMC BOARDS
+M:     Simon Fan <simon_fan@edge-core.com>
+S:     Maintained
+F:     board/bf-obmc/
+F:     include/configs/bfmavericks.h
+F:     configs/bfmavericks_defconfig
